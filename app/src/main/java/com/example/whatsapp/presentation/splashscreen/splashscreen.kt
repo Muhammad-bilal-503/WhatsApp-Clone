@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.colorResource
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 
 
@@ -59,9 +60,10 @@ fun SplashScreen() {
                     text = "Meta",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
-
                 )
+
             }
+            Spacer(modifier = Modifier.padding (bottom = 25.dp))
 
         }
 
