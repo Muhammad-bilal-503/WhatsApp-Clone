@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.whatsapp.R
+import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
 
 
 @Composable
@@ -35,36 +36,78 @@ fun HomeScreen() {
 
     val chatData = listOf(
         ChatDesignModel(
-            image = R.drawable.mrbeast,
-            name = "Mr Beast",
+            image = R.drawable.me,
+            name = "Muhammad Bilal",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
-            image = R.drawable.disha_patani,
-            name = "Disha Patani",
+            image = R.drawable.shahyan,
+            name = "Shahyan Ahmad",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
-            image = R.drawable.rashmika,
-            name = "Rashmika Mandanna",
+            image = R.drawable.hannan_ahmad,
+            name = "Hannan Ahmad",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
-            image = R.drawable.salman_khan,
-            name = "Salman Khan",
+            image = R.drawable.taimoor,
+            name = "Taimoor Arshad",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
-            image = R.drawable.sharadha_kapoor,
-            name = "Sharadha Kapoor",
+            image = R.drawable.abdussalam,
+            name = "Abdus Salam",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.talal,
+            name = "Talal Ashraf",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.harib,
+            name = "Muhammad Harib",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.salleh,
+            name = "Salleh Hayat",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.waleed,
+            name = "Waleed",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.jazib_asad,
+            name = "Jazib Asad",
+            time = "10:00 AM",
+            message = "Hello"
+        ),
+
+        ChatDesignModel(
+            image = R.drawable.haider,
+            name = "Haider Ali",
             time = "10:00 AM",
             message = "Hello"
         ),
@@ -77,22 +120,15 @@ fun HomeScreen() {
         ),
 
         ChatDesignModel(
-            image = R.drawable.mrbeast,
-            name = "Mr Beast",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.disha_patani,
-            name = "Disha Patani",
+            image = R.drawable.sharadha_kapoor,
+            name = "Sharadha Kapoor",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
             image = R.drawable.rashmika,
-            name = "Rashmika Mandanna",
+            name = "Rashmika ",
             time = "10:00 AM",
             message = "Hello"
         ),
@@ -105,19 +141,11 @@ fun HomeScreen() {
         ),
 
         ChatDesignModel(
-            image = R.drawable.sharadha_kapoor,
-            name = "Sharadha Kapoor",
+            image = R.drawable.disha_patani,
+            name = "Disha Patani",
             time = "10:00 AM",
             message = "Hello"
         ),
-
-        ChatDesignModel(
-            image = R.drawable.sharukh_khan,
-            name = "Sharukh Khan",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
 
     )
 
@@ -133,7 +161,7 @@ fun HomeScreen() {
             ) {
                 Icon(
 
-                    painter = painterResource(id = R.drawable.chat_icon),
+                    painter = painterResource(id = R.drawable.add_chat_icon),
                     contentDescription = null,
                     modifier = Modifier.size(size = 28.dp)
                 )
@@ -141,6 +169,10 @@ fun HomeScreen() {
             }
 
 
+        },
+
+        bottomBar = {
+            BottomNavigationBar()
         }
 
     ) {
