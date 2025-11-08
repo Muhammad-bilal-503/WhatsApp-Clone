@@ -32,11 +32,19 @@ fun UpdateScreen() {
     val scrollState = rememberScrollState()
 
     val sampleStatus = listOf(
-        StatusData( R.drawable.shahyan, name = "Shayan Ahmad", time = "Just Now"),
-        StatusData( R.drawable.salleh, name = "Saleh Hayat", time = "10 min ago"),
-        StatusData( R.drawable.haider, name = "Haider Ali", time = "1 hour ago"),
-        StatusData( R.drawable.mrbeast, name = "Mr Beast", time = "10 hours ago"),
+        StatusData(R.drawable.shahyan, name = "Shayan Ahmad", time = "Just Now"),
+        StatusData(R.drawable.salleh, name = "Saleh Hayat", time = "10 min ago"),
+        StatusData(R.drawable.haider, name = "Haider Ali", time = "1 hour ago"),
+        StatusData(R.drawable.mrbeast, name = "Mr Beast", time = "10 hours ago"),
     )
+
+    val sampleChannels = listOf(
+        Channel(R.drawable.talal, name = "Talal Vines", description = "Make it for Fun"),
+        Channel(R.drawable.taimoor, name = "Butt Brothers", description = "just looking Forward"),
+        Channel(R.drawable.whatsapp_icon, name = "WhatsApp", description = "Know World Wide"),
+        Channel(R.drawable.mrbeast, name = "Mr Beast", description = "Just Watching")
+    )
+
 
 
     Scaffold(
@@ -95,7 +103,30 @@ fun UpdateScreen() {
 
             HorizontalDivider(color = Color.Gray)
 
+            Text(
+                text = "Channels",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+            )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+
+                Text(
+                    text = "Stay Update on topic that matter to you. Find channels to follow below"
+                )
+                Spacer(modifier = Modifier.height(26.dp))
+                Text(text = "Find Channels to follow")
+
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            sampleChannels.forEach {
+                ChannelItemDesign(channel = it)
+            }
 
 
         }

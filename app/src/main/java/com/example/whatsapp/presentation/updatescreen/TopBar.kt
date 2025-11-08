@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.example.whatsapp.R
 
 @Composable
@@ -111,25 +112,34 @@ fun TopBar() {
 
                     }
 
-                    IconButton(onClick = { showMany = true }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.more),
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-
-                        DropdownMenu(expanded = showMany, onDismissRequest = { showMany = false }) {
-                            DropdownMenuItem(
-                                text = { Text(text = "Privacy Policy") },
-                                onClick = { showMany = false })
-                            DropdownMenuItem(
-                                text = { Text(text = "Create Channel") },
-                                onClick = { showMany = false })
-                            DropdownMenuItem(
-                                text = { Text(text = "Setting") },
-                                onClick = { showMany = false })
+                    // 👇 Dropdown Menu Button
+                    Box (modifier = Modifier.zIndex(1f)){
+                        IconButton(onClick = { showMany = !showMany }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.more),
+                                contentDescription = "More Options",
+                                modifier = Modifier.size(24.dp)
+                            )
                         }
 
+                        DropdownMenu(
+                            expanded = showMany,
+                            onDismissRequest = { showMany = false },
+                            
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Privacy Policy") },
+                                onClick = { showMany = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Create Channel") },
+                                onClick = { showMany = false }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Setting") },
+                                onClick = { showMany = false }
+                            )
+                        }
                     }
 
                 }
