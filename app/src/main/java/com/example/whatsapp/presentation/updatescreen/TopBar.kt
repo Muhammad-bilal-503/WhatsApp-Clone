@@ -132,13 +132,10 @@ fun TopBar() {
                                 onClick = { showMany = false }
                             )
                             DropdownMenuItem(
-                                text = { Text("Create Channel") },
+                                text = { Text("Create Chennals") },
                                 onClick = { showMany = false }
                             )
-                            DropdownMenuItem(
-                                text = { Text("Setting") },
-                                onClick = { showMany = false }
-                            )
+
                         }
                     }
 
