@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -51,6 +53,15 @@ fun CommunitiesScreen() {
     var showMany by remember {
         mutableStateOf(false)
     }
+
+    val sampleCommunities = listOf(
+        Communities(image = R.drawable.img, name = "Tech Enthusiasts", membercount = "200k member"),
+        Communities(image = R.drawable.img, name = "Photography Lovers", membercount = "1M member"),
+        Communities(image = R.drawable.img, name = "Music Fans", membercount = "500k member"),
+        Communities(image = R.drawable.img, name = "Travel Explorers", membercount = "300k member")
+
+    )
+
 
 
     Scaffold(
@@ -164,8 +175,15 @@ fun CommunitiesScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
 
-        }
+            LazyColumn {
 
+                items(sampleCommunities){
+                    CommunitiesItemsDesign(communities = it)
+                }
+
+            }
+
+        }
 
     }
 }
