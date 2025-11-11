@@ -44,7 +44,7 @@ fun HomeScreen() {
 
         ChatDesignModel(
             image = R.drawable.shahyan,
-            name = "Shahyan Ahmad",
+            name = "ShahYan Ahmad",
             time = "10:00 AM",
             message = "Hello"
         ),
@@ -58,14 +58,14 @@ fun HomeScreen() {
 
         ChatDesignModel(
             image = R.drawable.taimoor,
-            name = "Taimoor Arshad",
+            name = "TaiMoor Arshad",
             time = "10:00 AM",
             message = "Hello"
         ),
 
         ChatDesignModel(
             image = R.drawable.abdussalam,
-            name = "Abdus Salam",
+            name = "AbduSalam",
             time = "10:00 AM",
             message = "Hello"
         ),
@@ -86,7 +86,7 @@ fun HomeScreen() {
 
         ChatDesignModel(
             image = R.drawable.salleh,
-            name = "Salleh Hayat",
+            name = "Saleh Hayat",
             time = "10:00 AM",
             message = "Hello"
         ),
@@ -100,7 +100,7 @@ fun HomeScreen() {
 
         ChatDesignModel(
             image = R.drawable.jazib_asad,
-            name = "Jazib Asad",
+            name = "JaZib Asad",
             time = "10:00 AM",
             message = "Hello"
         ),
