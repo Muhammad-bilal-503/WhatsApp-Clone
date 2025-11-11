@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.whatsapp.R
+import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
@@ -133,9 +134,14 @@ fun CallScreen(){
                 }
 
             }
+        },
+        bottomBar = {
+            BottomNavigationBar()
         }
     ) {
         Column(modifier = Modifier.padding(it)) {
+            Spacer(modifier = Modifier.height(height = 16.dp))
+            FavoritesSection()
 
         }
 
