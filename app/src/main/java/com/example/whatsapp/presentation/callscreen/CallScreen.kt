@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -39,6 +41,19 @@ import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun CallScreen() {
+
+    val sampleCall= listOf(
+        Call(image = R.drawable.talal, name = "Talal Ashraf", time = "Today, 7:45 PM", isMissed = false),
+        Call(image = R.drawable.mrbeast, name = "Mr Beast", time = "Thursday, 7:45 PM", isMissed = true),
+        Call(image = R.drawable.shahyan, name = "Shahyan Ahmad", time = "Wednesday, 7:45 PM", isMissed = false),
+        Call(image = R.drawable.hannan_ahmad, name = "Hannan Ahmad", time = "Tuesday, 7:45 PM", isMissed = true),
+        Call(image = R.drawable.harib, name = "Harib", time = "Monday, 7:45 PM", isMissed = false),
+        Call(image = R.drawable.salleh, name = "Salleh Hayat", time = "Sunday, 7:45 PM", isMissed = true),
+        Call(image = R.drawable.haider, name = "Haider Ali", time = "6 November, 7:45 PM", isMissed = false),
+        Call(image = R.drawable.jazib_asad, name = "Jazib Asad", time = "5 November, 7:45 PM", isMissed = true),
+        Call(image = R.drawable.taimoor, name = "Taimoor Arshad", time = "4 November, 7:45 PM", isMissed = false),
+        Call(image = R.drawable.abdussalam, name = "Abdus Salam", time = "3 November, 7:45 PM", isMissed = true)
+    )
 
     var inSearching by remember {
         mutableStateOf(false)
@@ -171,6 +186,13 @@ fun CallScreen() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
+
+            LazyColumn {
+                items(sampleCall){data->
+                    CallItemsDesign(data)
+
+                }
+            }
 
         }
 

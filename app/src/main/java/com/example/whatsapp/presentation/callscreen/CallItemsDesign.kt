@@ -12,9 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,12 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.example.whatsapp.R
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun CallItemsDesign() {
+fun CallItemsDesign(call: Call) {
 
-    val isMissed by remember {
-        mutableStateOf(true)
-    }
+
 
     Row(
         modifier = Modifier
@@ -43,7 +37,7 @@ fun CallItemsDesign() {
     ) {
 
         Image(
-            painter = painterResource(R.drawable.talal),
+            painter = painterResource(call.image),
             contentDescription = null,
             modifier = Modifier
                 .size(60.dp)
@@ -51,27 +45,27 @@ fun CallItemsDesign() {
         )
         Spacer(modifier = Modifier.width(12.dp))
 
-        Column() {
+        Column {
 
             Text(
-                text = "Talal Ashraf",
+                text = call.name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
             )
 
-            Row() {
+            Row {
 
                 Icon(
                     painter = painterResource(R.drawable.baseline_call_missed_24),
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
-                    tint = if(isMissed) Color.Red else colorResource(R.color.light_green)
+                    tint = if(call.isMissed) Color.Red else colorResource(R.color.light_green)
                 )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    text = "Today, 8:40 PM", fontSize = 16.sp, color = Color.Gray
+                    text = call.time, fontSize = 16.sp, color = Color.Gray
                 )
 
             }
