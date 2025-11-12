@@ -1,6 +1,7 @@
 package com.example.whatsapp.presentation.callscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -71,7 +73,17 @@ fun CallItemsDesign(call: Call) {
             }
         }
 
+        Box(modifier = Modifier.fillMaxWidth()){
+            IconButton(onClick = {}, modifier = Modifier.align(Alignment.CenterEnd)) {
 
+                Icon(
+                    painter = painterResource(R.drawable.telephone),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+        }
     }
 
 }
