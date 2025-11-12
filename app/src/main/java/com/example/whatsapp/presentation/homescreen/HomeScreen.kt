@@ -229,10 +229,11 @@ fun HomeScreen() {
             HorizontalDivider(thickness = 1.dp)
 
             LazyColumn {
-                items(chatData){
-                    ChatDesign(chatDesignModel = it)
+                items(chatData) { chat ->
+                    ChatDesign(chatDesignModel = chat)
                 }
             }
+
 
         }
 
