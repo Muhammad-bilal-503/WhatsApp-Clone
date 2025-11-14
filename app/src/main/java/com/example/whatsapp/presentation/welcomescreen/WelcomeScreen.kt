@@ -24,12 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.whatsapp.R
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavHostController
+import com.example.whatsapp.presentation.navigation.Routes
 
 
-
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navHostController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -92,7 +92,7 @@ fun WelcomeScreen() {
             Spacer(modifier = Modifier.height(height = 20.dp))
 
             Button(
-                onClick = { /* TODO */ },
+                onClick = { navHostController.navigate(Routes.UserRegistrationScreen.route) },
                 modifier = Modifier
                     .width(260.dp)
                     .height(43.dp),

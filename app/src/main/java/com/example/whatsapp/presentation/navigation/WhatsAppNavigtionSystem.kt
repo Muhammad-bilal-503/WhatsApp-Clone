@@ -22,7 +22,7 @@ fun WhatsAppNavigationSystem() {
         }
 
         composable(Routes.WelcomeScreen.route){
-            WelcomeScreen()
+            WelcomeScreen(navController)
         }
 
         composable(Routes.UserRegistrationScreen.route){
