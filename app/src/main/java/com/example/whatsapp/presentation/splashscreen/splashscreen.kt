@@ -22,13 +22,26 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-
-
-
-
+import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavHostController
+import com.example.whatsapp.presentation.navigation.Routes
+import kotlinx.coroutines.delay
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(navHostController: NavHostController) {
+
+    LaunchedEffect(Unit){
+
+        delay (1000)
+        navHostController.navigate(Routes.WelcomeScreen.route){
+            popUpTo(Routes.SplashScreen.route){
+                inclusive = true
+            }
+        }
+    }
+
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.whatsapp_icon),
@@ -74,5 +87,6 @@ fun SplashScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SplashScreenPreview() {
-    SplashScreen()
+    val navController = rememberNavController() // ✅ create a fake NavController
+    SplashScreen(navHostController = navController)
 }
