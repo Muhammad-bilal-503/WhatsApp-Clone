@@ -58,7 +58,7 @@ fun CommunitiesScreen() {
         Communities(image = R.drawable.img, name = "Tech Enthusiasts", membercount = "200k member"),
         Communities(image = R.drawable.img, name = "Photography Lovers", membercount = "1M member"),
         Communities(image = R.drawable.img, name = "Music Fans", membercount = "500k member"),
-        Communities(image = R.drawable.img, name = "Travel Explorers", membercount = "300k member")
+        Communities(image = R.drawable.img, name = "Travel Explorers", membercount = "300k member"),
 
     )
 
@@ -91,7 +91,7 @@ fun CommunitiesScreen() {
                                 text = "Communities",
                                 fontSize = 28.sp,
                                 color = Color.Black,
-                                modifier = Modifier.padding(start = 12.dp, top = 12.dp)
+                                modifier = Modifier.padding(start = 12.dp, top = 12.dp),
                             )
 
 
@@ -106,7 +106,7 @@ fun CommunitiesScreen() {
                                 Icon(
                                     painter = painterResource(id = R.drawable.cross),
                                     contentDescription = null,
-                                    modifier = Modifier.size(15.dp)
+                                    modifier = Modifier.size(15.dp),
 
                                 )
                             }
@@ -116,7 +116,7 @@ fun CommunitiesScreen() {
                                 Icon(
                                     painter = painterResource(id = R.drawable.search),
                                     contentDescription = null,
-                                    modifier = Modifier.size(24.dp)
+                                    modifier = Modifier.size(24.dp),
                                 )
 
                             }
@@ -127,7 +127,7 @@ fun CommunitiesScreen() {
                                     Icon(
                                         painter = painterResource(id = R.drawable.more),
                                         contentDescription = "More Options",
-                                        modifier = Modifier.size(24.dp)
+                                        modifier = Modifier.size(24.dp),
                                     )
                                 }
 
@@ -172,7 +172,7 @@ fun CommunitiesScreen() {
                 text = "Popular Communities",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
 
             LazyColumn {
