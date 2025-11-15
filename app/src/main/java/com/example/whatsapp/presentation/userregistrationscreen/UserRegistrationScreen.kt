@@ -74,6 +74,8 @@ fun UserRegistrationScreen() {
             .fillMaxSize()
             .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Spacer(modifier = Modifier.height(height = 24.dp))
         Text(
             text = "Enter Your Phone Number",
             fontSize = 20.sp,
@@ -90,15 +92,21 @@ fun UserRegistrationScreen() {
 
             Spacer(modifier = Modifier.width(5.dp))
 
+
+        }
+        Spacer(modifier = Modifier.height(height = 12.dp))
+
+        Row {
             Text(
                 text = "What's ",
                 color = colorResource(id = R.color.light_green)
             )
+
+            Text(
+                text = "Your Number",
+                color = colorResource(id = R.color.light_green)
+            )
         }
-        Text(
-            text = "Your Number",
-            color = colorResource(id = R.color.light_green)
-        )
 
         Spacer(modifier = Modifier.height(height = 16.dp))
 

@@ -29,6 +29,7 @@ import com.example.whatsapp.presentation.navigation.Routes
 
 
 @Composable
+
 fun WelcomeScreen(navHostController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -55,21 +56,21 @@ fun WelcomeScreen(navHostController: NavHostController) {
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
                     text = "Privacy policy",
                     color = colorResource(id = R.color.light_green)
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
                     text = "Tap 'Agree and Continue' to",
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(4.dp))
 
             }
 
@@ -80,7 +81,7 @@ fun WelcomeScreen(navHostController: NavHostController) {
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
                     text = "Term and Condition",

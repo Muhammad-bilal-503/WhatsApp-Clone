@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.whatsapp"
-        minSdk = 29
-        targetSdk = 36
+        minSdk = 28
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
