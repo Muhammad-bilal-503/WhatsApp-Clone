@@ -97,7 +97,10 @@ fun UserRegistrationScreen() {
 
         Spacer(modifier = Modifier.height(height = 12.dp))
 
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
             Text(
                 text = "What's ",
                 color = colorResource(id = R.color.light_green)
