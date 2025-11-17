@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,17 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.whatsapp.R
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.navigation.NavHostController
 import com.example.whatsapp.presentation.navigation.Routes
 
 
 @Composable
-
 fun WelcomeScreen(navHostController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -50,45 +55,28 @@ fun WelcomeScreen(navHostController: NavHostController) {
 
             Spacer(modifier = Modifier.height(height = 20.dp))
 
-            Row {
-                Text(
-                    text = "Read our",
-                    color = Color.Gray
-                )
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(color = Color.Gray)) {
+                        append("Read our ")
+                    }
+                    withStyle(style = SpanStyle(color = Color(0xFF25D366))) {   // light green
+                        append("Privacy Policy")
+                    }
+                    withStyle(style = SpanStyle(color = Color.Gray)) {
+                        append(" and tap 'Agree and Continue' to accept the ")
+                    }
+                    withStyle(style = SpanStyle(color = Color(0xFF25D366))) {
+                        append("Terms and Conditions.")
+                    }
+                },
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp)
+            )
 
-                Spacer(modifier = Modifier.width(4.dp))
-
-                Text(
-                    text = "Privacy policy",
-                    color = colorResource(id = R.color.light_green)
-                )
-
-                Spacer(modifier = Modifier.width(4.dp))
-
-                Text(
-                    text = "Tap 'Agree and Continue' to",
-                    color = Color.Gray
-                )
-
-                Spacer(modifier = Modifier.width(4.dp))
-
-            }
-
-            Row {
-
-                Text(
-                    text = "accept the",
-                    color = Color.Gray
-                )
-
-                Spacer(modifier = Modifier.width(4.dp))
-
-                Text(
-                    text = "Term and Condition",
-                    color = colorResource(id = R.color.light_green)
-                )
-
-            }
 
             Spacer(modifier = Modifier.height(height = 20.dp))
 

@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,15 +86,15 @@ fun UserRegistrationScreen() {
 
         Spacer(modifier = Modifier.height(height = 24.dp))
 
-        Row {
-            Text(
-                text = "WhatsApp need to verify Your Phone Number"
-            )
+        Text(
+            text = "WhatsApp needs to verify your phone number",
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontSize = 14.sp,
+            color = Color.Gray,
+            textAlign = TextAlign.Center    // 👈 makes text centered
+        )
 
-            Spacer(modifier = Modifier.width(5.dp))
-
-
-        }
         Spacer(modifier = Modifier.height(height = 12.dp))
 
         Row {
