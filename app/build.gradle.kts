@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,7 +6,7 @@ plugins {
 
     id ("com.google.dagger.hilt.android")
     id ("kotlin-kapt")
-    alias(libs.plugins.google.gms.google.services)
+    id("com.google.gms.google-services")
 
 }
 
@@ -58,6 +59,19 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.firebase.database)
+
+
+    // Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    // Firebase Auth
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database-ktx")
+
+    implementation("androidx.core:core-ktx:1.12.0")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
