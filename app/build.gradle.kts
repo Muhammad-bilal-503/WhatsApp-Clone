@@ -5,6 +5,7 @@ plugins {
 
     id ("com.google.dagger.hilt.android")
     id ("kotlin-kapt")
+    alias(libs.plugins.google.gms.google.services)
 
 }
 
@@ -56,6 +57,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
