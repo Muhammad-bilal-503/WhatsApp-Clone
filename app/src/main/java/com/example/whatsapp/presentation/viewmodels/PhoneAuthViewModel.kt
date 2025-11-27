@@ -1,9 +1,13 @@
 package com.example.whatsapp.presentation.viewmodels
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.PhoneAuthUser
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -25,6 +29,26 @@ class PhoneAuthViewModel @Inject constructor(
 
         _authState.value= AuthState.Loading
 
+        val option = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+
+            override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(id, token)
+                Log.d("PhoneAuth", "onCodeSend triggered. varification ID: $id")
+                _authState.value= AuthState.CodeSent(varificationId = id)
+            }
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onVerificationFailed(exception: FirebaseException) {
+
+                Log.e("PhoneAuth", "Verification Failed: ${exception.message}")
+                _authState.value= AuthState.Error(exception.message ?: "verification Failed")
+            }
+
+
+        }
     }
 
 
