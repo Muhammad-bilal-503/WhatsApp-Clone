@@ -1,5 +1,6 @@
 package com.example.whatsapp.presentation.viewmodels
 
+import android.app.Activity
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.PhoneAuthUser
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,12 @@ class PhoneAuthViewModel @Inject constructor(
     val authState = _authState.asStateFlow()
 
     private val userRef = database.reference.child("users")
+
+    fun sendVerificationCode(phoneNumber: String,activity: Activity) {
+
+        _authState.value= AuthState.Loading
+
+    }
 
 
 }
