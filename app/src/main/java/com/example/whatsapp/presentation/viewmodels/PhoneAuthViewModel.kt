@@ -1,6 +1,7 @@
 package com.example.whatsapp.presentation.viewmodels
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.PhoneAuthUser
@@ -38,7 +39,8 @@ class PhoneAuthViewModel @Inject constructor(
             }
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                TODO("Not yet implemented")
+
+                signWithCredential(credential, context = activity)
             }
 
             override fun onVerificationFailed(exception: FirebaseException) {
@@ -51,8 +53,33 @@ class PhoneAuthViewModel @Inject constructor(
         }
     }
 
+    private fun signWithCredential(credential: PhoneAuthCredential, context: Context) {
 
+        _authState.value= AuthState.Loading
+
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+
+                if (task.isSuccessful){
+                    val user = firebaseAuth.currentUser
+                    val phoneAuthUser = PhoneAuthUser(
+                        userId = user?.uid?:"",
+                        phoneNumber = user?.phoneNumber?:""
+                    )
+
+                    markUserAsSignedIn(context)
+                    _authState.value= AuthState.Success(phoneAuthUser)
+
+                    fetchUserProfile(user?.uid?:"")
+                }
+                else{
+                    _authState.value= AuthState.Error(task.exception?.message?:"Sign In Failed")
+
+                }
+            }
+    }
 }
+
 sealed class AuthState{
     object Ideal : AuthState()
     object Loading : AuthState()
