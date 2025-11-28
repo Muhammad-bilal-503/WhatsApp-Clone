@@ -170,8 +170,19 @@ class PhoneAuthViewModel @Inject constructor(
 
     }
 
+    fun resetAuthState() {
 
+        _authState.value = AuthState.Ideal
 
+    }
+
+    fun signOut(context: Context) {
+
+        firebaseAuth.signOut()
+
+        val sharedPreferences = context.getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isSignedIn", false).apply()
+    }
 
 }
 
