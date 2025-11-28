@@ -2,20 +2,26 @@ package com.example.whatsapp.presentation.viewmodels
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.PhoneAuthUser
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.ByteArrayOutputStream
 import java.util.concurrent.TimeUnit
+import android.util.Base64
+import kotlin.math.log
 
 @HiltViewModel
 class PhoneAuthViewModel @Inject constructor(
@@ -91,6 +97,82 @@ class PhoneAuthViewModel @Inject constructor(
                 }
             }
     }
+
+    private fun markUserAsSignedIn(context: Context) {
+
+        val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isSignedIn", true).apply()
+    }
+
+
+    private fun fetchUserProfile(userId: String) {
+
+        val userRef = userRef.child(userId)
+        userRef.get().addOnSuccessListener { snapshot ->
+
+            if (snapshot.exists()) {
+
+                val userProfile = snapshot.getValue(PhoneAuthUser::class.java)
+
+                if (userProfile != null) {
+
+                    _authState.value = AuthState.Success(userProfile)
+                }
+
+            }
+        }.addOnFailureListener {
+
+            _authState.value= AuthState.Error("Failed to fetch user profile")
+        }
+    }
+
+
+    fun verifyCode(otp: String, context: Context) {
+
+        val currentAuthState = _authState.value
+
+        if (currentAuthState !is AuthState.CodeSent || currentAuthState.varificationId.isEmpty()) {
+
+            Log.e("PhoneAuth", "Attempting to Verify OTP Without a valid Verification ID")
+
+            _authState.value = AuthState.Error("Verification not Start or Invalid ID")
+            return
+        }
+
+        val credential = PhoneAuthProvider.getCredential(currentAuthState.varificationId, otp)
+        signWithCredential(credential, context)
+
+    }
+
+    fun saveUserProfile(userId: String, name: String, status: String, profileImage: Bitmap?){
+
+        val database = FirebaseDatabase.getInstance().reference
+
+        val encodedImage = profileImage?.let { convertBitmapToBase64(it)  }
+        val userProfile = PhoneAuthUser(
+            userId = userId,
+            name = name,
+            status = status,
+            phoneNumber = Firebase.auth.currentUser?.phoneNumber?:"",
+            profileImage = encodedImage
+        )
+
+        database.child("users").child(userId).setValue(userProfile)
+
+    }
+
+    private fun convertBitmapToBase64(bitmap: Bitmap): String {
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    }
+
+
+
+
 }
 
 sealed class AuthState{
