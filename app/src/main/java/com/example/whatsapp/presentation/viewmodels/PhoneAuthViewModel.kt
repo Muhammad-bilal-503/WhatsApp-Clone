@@ -8,12 +8,14 @@ import com.example.whatsapp.models.PhoneAuthUser
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.concurrent.TimeUnit
 
 @HiltViewModel
 class PhoneAuthViewModel @Inject constructor(
@@ -51,6 +53,17 @@ class PhoneAuthViewModel @Inject constructor(
 
 
         }
+
+        val phoneAuthOptions = PhoneAuthOptions.newBuilder(firebaseAuth)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(activity)
+            .setCallbacks(option)
+            .build()
+
+        PhoneAuthProvider.verifyPhoneNumber(phoneAuthOptions)
+
+
     }
 
     private fun signWithCredential(credential: PhoneAuthCredential, context: Context) {
