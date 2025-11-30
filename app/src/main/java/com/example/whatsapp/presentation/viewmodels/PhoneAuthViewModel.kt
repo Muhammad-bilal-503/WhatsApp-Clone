@@ -160,7 +160,7 @@ class PhoneAuthViewModel @Inject constructor(
         database.child("users").child(userId).setValue(userProfile)
 
     }
-
+// fun for convert bitmap to base64
     private fun convertBitmapToBase64(bitmap: Bitmap): String {
 
         val byteArrayOutputStream = ByteArrayOutputStream()
