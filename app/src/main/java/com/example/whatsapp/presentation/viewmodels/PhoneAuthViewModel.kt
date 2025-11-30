@@ -143,7 +143,7 @@ class PhoneAuthViewModel @Inject constructor(
         signWithCredential(credential, context)
 
     }
-
+// fun for save user profile
     fun saveUserProfile(userId: String, name: String, status: String, profileImage: Bitmap?){
 
         val database = FirebaseDatabase.getInstance().reference
