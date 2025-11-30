@@ -71,7 +71,7 @@ class PhoneAuthViewModel @Inject constructor(
 
 
     }
-
+//fun for sign user or not
     private fun signWithCredential(credential: PhoneAuthCredential, context: Context) {
 
         _authState.value= AuthState.Loading
