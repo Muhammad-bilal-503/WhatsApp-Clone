@@ -97,7 +97,7 @@ class PhoneAuthViewModel @Inject constructor(
                 }
             }
     }
-
+// fun for user is signed in
     private fun markUserAsSignedIn(context: Context) {
 
         val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
