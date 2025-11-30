@@ -126,7 +126,7 @@ class PhoneAuthViewModel @Inject constructor(
         }
     }
 
-
+// fun for verify otp
     fun verifyCode(otp: String, context: Context) {
 
         val currentAuthState = _authState.value
