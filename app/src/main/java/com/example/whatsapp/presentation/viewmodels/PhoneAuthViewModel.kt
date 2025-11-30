@@ -104,7 +104,7 @@ class PhoneAuthViewModel @Inject constructor(
         sharedPreferences.edit().putBoolean("isSignedIn", true).apply()
     }
 
-
+// fun for fetch user profile
     private fun fetchUserProfile(userId: String) {
 
         val userRef = userRef.child(userId)
