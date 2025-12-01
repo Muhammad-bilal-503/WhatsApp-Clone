@@ -34,6 +34,7 @@ class PhoneAuthViewModel @Inject constructor(
 
     private val userRef = database.reference.child("users")
 
+    // fun for send verification code
     fun sendVerificationCode(phoneNumber: String,activity: Activity) {
 
         _authState.value= AuthState.Loading
