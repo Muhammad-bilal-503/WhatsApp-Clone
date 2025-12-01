@@ -170,6 +170,7 @@ class PhoneAuthViewModel @Inject constructor(
 
     }
 
+    // fun for reset auth state
     fun resetAuthState() {
 
         _authState.value = AuthState.Ideal
