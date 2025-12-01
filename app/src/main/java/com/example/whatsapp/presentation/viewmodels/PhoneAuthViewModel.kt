@@ -177,6 +177,7 @@ class PhoneAuthViewModel @Inject constructor(
 
     }
 
+    // fun for sign out
     fun signOut(context: Context) {
 
         firebaseAuth.signOut()
