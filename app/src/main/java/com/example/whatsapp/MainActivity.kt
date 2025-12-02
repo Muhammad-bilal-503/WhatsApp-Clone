@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.whatsapp.presentation.navigation.WhatsAppNavigationSystem
 import com.example.whatsapp.ui.theme.WhatsappTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
