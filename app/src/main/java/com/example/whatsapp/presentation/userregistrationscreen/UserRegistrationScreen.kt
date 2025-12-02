@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.whatsapp.presentation.navigation.Routes
 import com.example.whatsapp.presentation.viewmodels.AuthState
 import com.example.whatsapp.presentation.viewmodels.PhoneAuthViewModel
@@ -57,7 +58,7 @@ import com.example.whatsapp.presentation.viewmodels.PhoneAuthViewModel
 
 @Composable
 fun PreviewUserRegistrationScreen() {
-    UserRegistrationScreen()
+    UserRegistrationScreen(navController = rememberNavController())
 }
 
 @Composable
@@ -75,10 +76,9 @@ fun UserRegistrationScreen(
         mutableStateOf("")
     }
 
-    var varificationId by remember {
-        mutableStateOf<android.R.string>("")
+    var verificationId by remember {
+        mutableStateOf("")
     }
-
 
     var expanded by remember {
         mutableStateOf(false)
@@ -202,10 +202,10 @@ fun UserRegistrationScreen(
             is AuthState.Ideal, is AuthState.Loading, is AuthState.CodeSent -> {
 
                 if (authState is AuthState.CodeSent) {
-                    varificationId = (authState as AuthState.CodeSent).varificationId
+                    verificationId = (authState as AuthState.CodeSent).varificationId
                 }
 
-                if (varificationId == null) {
+                if (verificationId == null) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -307,7 +307,7 @@ fun UserRegistrationScreen(
                     Button(
                         onClick = {
 
-                            if (otp.isNotEmpty() && varificationId != null) {
+                            if (otp.isNotEmpty() && verificationId != null) {
                                 phoneAuthViewModel.verifyCode(otp, context)
                             } else {
                                 Toast.makeText(
