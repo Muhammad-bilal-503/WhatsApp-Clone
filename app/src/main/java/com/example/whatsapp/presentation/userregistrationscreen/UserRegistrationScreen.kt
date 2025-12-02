@@ -272,7 +272,50 @@ fun UserRegistrationScreen(
 
                 }else{
 
+                    //OTP UI Screen
 
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    Text(
+                        text = "Enter OTP",
+                        fontSize = 20.sp,
+                        color = colorResource(id = R.color.dark_green),
+                        fontWeight = FontWeight.Bold
+
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    TextField(
+                        value = otp,
+                        onValueChange = { otp = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = {Text("OTP")},
+                        singleLine = true,
+                        colors = TextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.Transparent,
+                            focusedContainerColor = Color.Transparent,
+                            focusedIndicatorColor = Color.Transparent
+                        )
+
+                    )
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Button(onClick = {
+
+                        if (otp.isNotEmpty() && varificationId !=null){
+                            phoneAuthViewModel.verifyCode(otp, context)
+                        }else{
+                            Toast.makeText(context, "Please enter a valid OTP", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }) {
+
+                        Text(
+                            text = "Verify OTP"
+                        )
+                    }
                 }
 
             }
