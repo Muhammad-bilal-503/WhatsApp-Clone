@@ -1,6 +1,7 @@
 package com.example.whatsapp.presentation.userregistrationscreen
 
 import android.app.Activity
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.whatsapp.presentation.navigation.Routes
 import com.example.whatsapp.presentation.viewmodels.AuthState
 import com.example.whatsapp.presentation.viewmodels.PhoneAuthViewModel
 
@@ -265,12 +267,12 @@ fun UserRegistrationScreen(
                         Text(text = "Send OTP")
                     }
 
-                    if (authState is AuthState.Loading){
+                    if (authState is AuthState.Loading) {
                         Spacer(modifier = Modifier.height(16.dp))
                         CircularProgressIndicator()
                     }
 
-                }else{
+                } else {
 
                     //OTP UI Screen
 
@@ -290,7 +292,7 @@ fun UserRegistrationScreen(
                         value = otp,
                         onValueChange = { otp = it },
                         modifier = Modifier.fillMaxWidth(),
-                        placeholder = {Text("OTP")},
+                        placeholder = { Text("OTP") },
                         singleLine = true,
                         colors = TextFieldDefaults.colors(
                             unfocusedContainerColor = Color.Transparent,
@@ -302,23 +304,54 @@ fun UserRegistrationScreen(
 
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    Button(onClick = {
+                    Button(
+                        onClick = {
 
-                        if (otp.isNotEmpty() && varificationId !=null){
-                            phoneAuthViewModel.verifyCode(otp, context)
-                        }else{
-                            Toast.makeText(context, "Please enter a valid OTP", Toast.LENGTH_SHORT).show()
-                        }
+                            if (otp.isNotEmpty() && varificationId != null) {
+                                phoneAuthViewModel.verifyCode(otp, context)
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Please enter a valid OTP",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                    }) {
+                        }, shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(colorResource(R.color.dark_green))
+                    ) {
 
                         Text(
                             text = "Verify OTP"
                         )
                     }
+
+                    if (authState is AuthState.Loading){
+
+                        Spacer(modifier = Modifier.height(16.dp))
+                        CircularProgressIndicator()
+
+                    }
                 }
 
             }
+
+            is AuthState.Success ->{
+
+                Log.d("PhoneAuth", "SuccessFully")
+
+                phoneAuthViewModel.resetAuthState()
+
+                navController.navigate(Routes.UserProfileScreen){
+                    popUpTo <Routes.UserRegistrationScreen>{
+                        inclusive = true
+
+                    }
+                }
+
+            }
+
+
         }
 
 
