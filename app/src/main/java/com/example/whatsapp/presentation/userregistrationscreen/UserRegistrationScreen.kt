@@ -351,6 +351,12 @@ fun UserRegistrationScreen(
 
             }
 
+            is AuthState.Error ->{
+
+                Toast.makeText(context, (authState as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+
+            }
+
 
         }
 
