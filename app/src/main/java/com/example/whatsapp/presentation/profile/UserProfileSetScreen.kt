@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -37,17 +39,19 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.whatsapp.R
 import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.example.whatsapp.presentation.navigation.Routes
 import com.example.whatsapp.presentation.viewmodels.PhoneAuthViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 @Composable
 fun userProfilesetScreen(
-    phoneAuthViewModel: PhoneAuthViewModel,
+    phoneAuthViewModel: PhoneAuthViewModel= hiltViewModel(),
     navHostController: NavHostController
 ) {
 
@@ -167,7 +171,30 @@ fun userProfilesetScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        TextField(
+            value = status,
+            onValueChange = { status = it },
+            label = { Text("Status") },
+            modifier = Modifier.fillMaxWidth(),
 
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                focusedIndicatorColor = colorResource(R.color.light_green)
+            )
+
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+
+        Button(onClick = {
+            phoneAuthViewModel.saveUserProfile(userid, name, status, bitmapImage)
+            navHostController.navigate(Routes.HomeScreen)
+        }, colors = ButtonDefaults.buttonColors(colorResource(R.color.light_green)))  {
+
+            Text("Save")
+        }
     }
 
 }
