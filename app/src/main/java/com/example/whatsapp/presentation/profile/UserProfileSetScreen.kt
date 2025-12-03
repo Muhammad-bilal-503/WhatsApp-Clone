@@ -2,9 +2,12 @@ package com.example.whatsapp.presentation.profile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import com.example.whatsapp.presentation.viewmodels.PhoneAuthViewModel
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun UserProfileSetScreen(){
+fun userProfileSetScreen(phoneAuthViewModel: PhoneAuthViewModel, navHostController: NavHostController){
+
 
 }

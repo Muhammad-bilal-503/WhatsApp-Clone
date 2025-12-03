@@ -361,5 +361,3 @@ fun UserRegistrationScreen(
     }
 
 }
-
-
