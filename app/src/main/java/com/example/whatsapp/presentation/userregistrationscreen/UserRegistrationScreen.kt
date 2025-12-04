@@ -1,8 +1,8 @@
 package com.example.whatsapp.presentation.userregistrationscreen
 
-import android.app.Activity
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -65,7 +65,7 @@ fun UserRegistrationScreen(
 
     val authState = phoneAuthViewModel.authState.collectAsState()
     val context = LocalContext.current
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current
 
 
     var otp by remember {
@@ -249,7 +249,12 @@ fun UserRegistrationScreen(
 
                                 val fullPhoneNumber = "$countryCode$phoneNumber"
 
-                                phoneAuthViewModel.sendVerificationCode(fullPhoneNumber, activity)
+                                val currentActivity = activity ?: run {
+                                    Toast.makeText(context, "Activity not available!", Toast.LENGTH_SHORT).show()
+                                    return@Button
+                                }
+
+                                phoneAuthViewModel.sendVerificationCode(fullPhoneNumber, currentActivity)
                             } else {
                                 Toast.makeText(
                                     context,
@@ -340,7 +345,7 @@ fun UserRegistrationScreen(
                 phoneAuthViewModel.resetAuthState()
 
                 navController.navigate(Routes.UserProfileSetScreen){
-                    popUpTo <Routes.UserRegistrationScreen>{
+                    popUpTo (Routes.UserRegistrationScreen){
                         inclusive = true
 
                     }

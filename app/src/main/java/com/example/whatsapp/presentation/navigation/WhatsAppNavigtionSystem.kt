@@ -46,7 +46,7 @@ fun WhatsAppNavigationSystem() {
             CallScreen()
         }
 
-        composable<Routes.UserProfileSetScreen> {
+        composable(Routes.UserProfileSetScreen.route) {
             userProfilesetScreen(navHostController = navController)
         }
 
