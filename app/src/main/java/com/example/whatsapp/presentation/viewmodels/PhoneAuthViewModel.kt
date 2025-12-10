@@ -28,12 +28,15 @@ import kotlin.math.log
 class PhoneAuthViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val database: FirebaseDatabase
+
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Ideal)
     val authState = _authState.asStateFlow()
 
     private val userRef = database.reference.child("users")
+
+
 
     // fun for send verification code
     fun sendVerificationCode(phoneNumber: String,activity: Activity) {
