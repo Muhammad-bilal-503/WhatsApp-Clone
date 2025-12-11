@@ -190,7 +190,7 @@ fun userProfilesetScreen(
 
         Button(onClick = {
             phoneAuthViewModel.saveUserProfile(userid, name, status, bitmapImage)
-            navHostController.navigate(Routes.HomeScreen)
+            navHostController.navigate(Routes.HomeScreen.route)
         }, colors = ButtonDefaults.buttonColors(colorResource(R.color.light_green)))  {
 
             Text("Save")
