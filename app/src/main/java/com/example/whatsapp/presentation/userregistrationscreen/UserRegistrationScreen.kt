@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +35,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -279,14 +281,22 @@ fun UserRegistrationScreen(
                 }
             }
 
+
+
             is AuthState.Success -> {
-                phoneAuthViewModel.resetAuthState()
-                navController.navigate(Routes.UserProfileSetScreen) {
-                    popUpTo(Routes.UserRegistrationScreen) {
-                        inclusive = true
+                LaunchedEffect(Unit) {
+                    phoneAuthViewModel.resetAuthState()
+                    navController.navigate(Routes.UserProfileSetScreen) {
+                        popUpTo(Routes.UserRegistrationScreen) { inclusive = true }
                     }
                 }
+                // Ye sirf placeholder hai - kuch bhi chalta hai
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()  // Optional: loading dikhao
+                }
             }
+
+
 
             is AuthState.Error -> {
                 Toast.makeText(
