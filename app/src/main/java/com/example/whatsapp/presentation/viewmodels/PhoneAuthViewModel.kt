@@ -107,29 +107,23 @@ class PhoneAuthViewModel @Inject constructor(
         sharedPreferences.edit().putBoolean("isSignedIn", true).apply()
     }
 
-// fun for fetch user profile
+    // fun for fetch user profile
     private fun fetchUserProfile(userId: String) {
-
         val userRef = userRef.child(userId)
         userRef.get().addOnSuccessListener { snapshot ->
-
             if (snapshot.exists()) {
-
                 val userProfile = snapshot.getValue(PhoneAuthUser::class.java)
-
                 if (userProfile != null) {
-
-                    _authState.value = AuthState.Success(userProfile)
+                    Log.d("PhoneAuth", "User profile found: ${userProfile.name}")
                 }
-
             }
-        }.addOnFailureListener {
-
-            _authState.value= AuthState.Error("Failed to fetch user profile")
+        }.addOnFailureListener { error ->
+            Log.e("PhoneAuth", "Profile fetch failed: ${error.message}")
         }
     }
 
-// fun for verify otp
+
+    // fun for verify otp
     fun verifyCode(otp: String, context: Context) {
 
         val currentAuthState = _authState.value

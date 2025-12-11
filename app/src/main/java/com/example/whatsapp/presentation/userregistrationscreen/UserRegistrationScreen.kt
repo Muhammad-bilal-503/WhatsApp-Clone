@@ -290,12 +290,11 @@ fun UserRegistrationScreen(
                         popUpTo(Routes.UserRegistrationScreen) { inclusive = true }
                     }
                 }
-                // Ye sirf placeholder hai - kuch bhi chalta hai
+
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()  // Optional: loading dikhao
                 }
             }
-
 
 
             is AuthState.Error -> {
