@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream
 import java.util.concurrent.TimeUnit
 
 import android.util.Base64
-import kotlin.math.log
 
 @HiltViewModel
 class PhoneAuthViewModel @Inject constructor(
@@ -37,7 +36,6 @@ class PhoneAuthViewModel @Inject constructor(
     private val userRef = database.reference.child("users")
 
 
-
     // fun for send verification code
     fun sendVerificationCode(phoneNumber: String,activity: Activity) {
 
@@ -48,7 +46,7 @@ class PhoneAuthViewModel @Inject constructor(
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(id, token)
                 Log.d("PhoneAuth", "onCodeSend triggered. varification ID: $id")
-                _authState.value= AuthState.CodeSent(varificationId = id)
+                _authState.value= AuthState.CodeSent(verificationId = id)
             }
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -136,7 +134,7 @@ class PhoneAuthViewModel @Inject constructor(
 
         val currentAuthState = _authState.value
 
-        if (currentAuthState !is AuthState.CodeSent || currentAuthState.varificationId.isEmpty()) {
+        if (currentAuthState !is AuthState.CodeSent || currentAuthState.verificationId.isEmpty()) {
 
             Log.e("PhoneAuth", "Attempting to Verify OTP Without a valid Verification ID")
 
@@ -144,7 +142,7 @@ class PhoneAuthViewModel @Inject constructor(
             return
         }
 
-        val credential = PhoneAuthProvider.getCredential(currentAuthState.varificationId, otp)
+        val credential = PhoneAuthProvider.getCredential(currentAuthState.verificationId, otp)
         signWithCredential(credential, context)
 
     }
@@ -187,7 +185,7 @@ class PhoneAuthViewModel @Inject constructor(
 
         firebaseAuth.signOut()
 
-        val sharedPreferences = context.getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         sharedPreferences.edit().putBoolean("isSignedIn", false).apply()
     }
 
@@ -196,7 +194,7 @@ class PhoneAuthViewModel @Inject constructor(
 sealed class AuthState{
     object Ideal : AuthState()
     object Loading : AuthState()
-    data class CodeSent(val varificationId : String) : AuthState()
+    data class CodeSent(val verificationId : String) : AuthState()
     data class Success(val user : PhoneAuthUser) : AuthState()
     data class Error(val message : String) : AuthState()
 }
