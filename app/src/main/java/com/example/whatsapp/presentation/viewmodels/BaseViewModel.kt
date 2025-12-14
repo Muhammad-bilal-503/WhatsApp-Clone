@@ -131,5 +131,24 @@ class BaseViewModel : ViewModel() {
     }
 
 
+    fun addChat(newChat: ChatListModel) {
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+        if (currentUserId != null) {
+
+            val newChatRef = FirebaseDatabase.getInstance().getReference("chats").push()
+            val chatWithUser = newChat.copy(currentUserId)
+            newChatRef.setValue(chatWithUser).addOnSuccessListener {
+
+                Log.d("BaseViewModel", "Chat added successfully in database")
+
+            }.addOnFailureListener { exception ->
+                Log.e("BaseViewModel", "Error adding chat to database: ${exception.message}")
+            }
+        } else {
+            Log.e("BaseViewModel", "User is not authenticated")
+        }
+
+
+    }
 
 }
