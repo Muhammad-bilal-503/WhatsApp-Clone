@@ -181,8 +181,8 @@ class BaseViewModel : ViewModel() {
     fun getMessage(
         senderPhoneNumber: String,
         receiverPhoneNumber: String,
-        onNewMessage: (Message)-> Unit
-    ){
+        onNewMessage: (Message) -> Unit
+    ) {
         val messageRef = dataBaseReference.child("messages")
             .child(senderPhoneNumber)
             .child(receiverPhoneNumber)
@@ -202,6 +202,39 @@ class BaseViewModel : ViewModel() {
             }
         })
 
+    }
+
+
+    fun fetchLastMessageForChat(
+        senderPhoneNumber: String,
+        receiverPhoneNumber: String,
+        onLastMessageFetched: (String, String) -> Unit
+    ) {
+        val chatRef = FirebaseDatabase.getInstance().reference
+            .child("messages")
+            .child(senderPhoneNumber)
+            .child(receiverPhoneNumber)
+
+        chatRef.orderByChild("timestamp").limitToLast(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val lastMessage =
+                            snapshot.children.firstOrNull()?.child("message")?.value as? String
+                        val timestamp =
+                            snapshot.children.firstOrNull()?.child("timestamp")?.value as? String
+                        onLastMessageFetched(lastMessage ?: "No message", timestamp ?: "--:--")
+                    } else {
+                        onLastMessageFetched("No message", "--:--")
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    onLastMessageFetched("No message", "--:--")
+                }
+            })
     }
 
 
