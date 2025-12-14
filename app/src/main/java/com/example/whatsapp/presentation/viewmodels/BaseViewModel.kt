@@ -52,6 +52,39 @@ class BaseViewModel : ViewModel() {
     }
 
 
+    fun getChatForUser(userId: String, callback: (List<ChatListModel>) -> Unit) {
+
+        val chatref = FirebaseDatabase.getInstance().getReference("users/$userId/chats")
+        chatref.orderByChild("userId").equalTo(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val chatList = mutableListOf<ChatListModel>()
+                    for (childSnapshot in snapshot.children) {
+                        val chat = childSnapshot.getValue(ChatListModel::class.java)
+
+                        if (chat != null) {
+                            chatList.add(chat)
+                        }
+
+                    }
+                    callback(chatList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                    Log.e(
+                        "BaseViewModel",
+                        "Error Fetching User Chats: ${error.message}, Details: ${error.details}"
+                    )
+                    callback(emptyList())
+
+                }
+            }
+            )
+    }
+
 
 
 }
