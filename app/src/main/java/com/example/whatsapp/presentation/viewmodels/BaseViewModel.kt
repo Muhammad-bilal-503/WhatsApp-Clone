@@ -3,6 +3,7 @@ package com.example.whatsapp.presentation.viewmodels
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.whatsapp.models.Message
 import com.example.whatsapp.presentation.chat_box.ChatListModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -150,5 +151,59 @@ class BaseViewModel : ViewModel() {
 
 
     }
+
+
+    private val dataBaseReference = FirebaseDatabase.getInstance().reference
+
+    fun sendMessage(senderPhoneNumber: String, receiverPhoneNumber: String, messageText: String) {
+
+        val messageId = dataBaseReference.push().key ?: return
+        val message = Message(
+            senderPhoneNumber = senderPhoneNumber,
+            message = messageText,
+            timestamp = System.currentTimeMillis()
+        )
+
+        dataBaseReference.child("messages")
+            .child(senderPhoneNumber)
+            .child(receiverPhoneNumber)
+            .child(messageId)
+            .setValue(message)
+
+        dataBaseReference.child("messages")
+            .child(receiverPhoneNumber)
+            .child(senderPhoneNumber)
+            .child(messageId)
+            .setValue(message)
+
+    }
+
+    fun getMessage(
+        senderPhoneNumber: String,
+        receiverPhoneNumber: String,
+        onNewMessage: (Message)-> Unit
+    ){
+        val messageRef = dataBaseReference.child("messages")
+            .child(senderPhoneNumber)
+            .child(receiverPhoneNumber)
+
+        messageRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val message = snapshot.getValue(Message::class.java)
+                if (message != null) {
+                    onNewMessage(message)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("BaseViewModel", "Error fetching messages: ${error.message}")
+            }
+        })
+
+    }
+
+
 
 }
