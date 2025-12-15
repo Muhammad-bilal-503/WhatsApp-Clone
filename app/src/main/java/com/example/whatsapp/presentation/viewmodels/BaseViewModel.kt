@@ -238,5 +238,59 @@ class BaseViewModel : ViewModel() {
     }
 
 
+    fun loadChatList(
+        currentUserPhoneNumber: String,
+        onChatListLoaded: (List<ChatListModel>) -> Unit
+    ) {
+
+        val chatList = mutableListOf<ChatListModel>()
+        val chatRef = FirebaseDatabase.getInstance().reference
+            .child("chats")
+            .child(currentUserPhoneNumber)
+
+        chatRef.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()) {
+                    snapshot.children.forEach { child ->
+
+                        val phoneNumber = child.key ?: return@forEach
+                        val name = child.child("name").value as? String ?: "Unknown"
+                        val image = child.child("image").value as? String
+
+                        val profileImageBitmap = image?.let { decodeBase64ToBitmap(it) }
+
+                        fetchLastMessageForChat(
+                            currentUserPhoneNumber,
+                            phoneNumber
+                        ) { lastMessage, time ->
+
+                            chatList.add(
+                                ChatListModel(
+                                    name = name,
+                                    image = profileImageBitmap,
+                                    message = lastMessage,
+                                    time = time
+                                )
+                            )
+
+                            if (chatList.size == snapshot.childrenCount.toInt()) {
+                                onChatListLoaded(chatList)
+                            }
+                        }
+                    }
+                } else {
+                    onChatListLoaded(emptyList())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                onChatListLoaded(emptyList())
+            }
+        })
+
+    }
+
 
 }
