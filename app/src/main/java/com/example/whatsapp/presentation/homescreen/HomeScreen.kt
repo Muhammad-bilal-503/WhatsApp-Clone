@@ -34,122 +34,6 @@ import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
 @Preview(showBackground = true, showSystemUi = true)
 fun HomeScreen() {
 
-    val chatData = listOf(
-        ChatDesignModel(
-            image = R.drawable.me,
-            name = "Muhammad Bilal",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.shahyan,
-            name = "ShahYan Ahmad",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.hannan_ahmad,
-            name = "Hannan Ahmad",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.taimoor,
-            name = "TaiMoor Arshad",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.abdussalam,
-            name = "AbduSalam",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.talal,
-            name = "Talal Ashraf",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.harib,
-            name = "Muhammad Harib",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.salleh,
-            name = "Saleh Hayat",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.waleed,
-            name = "Waleed",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.jazib_asad,
-            name = "JaZib Asad",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.haider,
-            name = "Haider Ali",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.sharukh_khan,
-            name = "Sharukh Khan",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.sharadha_kapoor,
-            name = "Sharadha Kapoor",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.rashmika,
-            name = "Rashmika ",
-            time = "10:00 AM",
-            message = "Hello"
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.salman_khan,
-            name = "Salman Khan",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-        ChatDesignModel(
-            image = R.drawable.disha_patani,
-            name = "Disha Patani",
-            time = "10:00 AM",
-            message = "Hello",
-        ),
-
-    )
-
-
 
     Scaffold(
         floatingActionButton = {
@@ -226,13 +110,6 @@ fun HomeScreen() {
                 }
             }
 
-            HorizontalDivider(thickness = 1.dp)
-
-            LazyColumn {
-                items(chatData) { chat ->
-                    ChatDesign(chatDesignModel = chat)
-                }
-            }
 
 
         }

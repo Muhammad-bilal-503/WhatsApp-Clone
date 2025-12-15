@@ -1,11 +1,12 @@
 package com.example.whatsapp.presentation.chat_box
 
+import android.graphics.Bitmap
 import com.example.whatsapp.R
 
 data class ChatListModel(
     val name: String? = null,          // Contact name
     val phoneNumber: String? = null,   // Phone number
-    val image: Int? = null,            // Drawable resource (optional)
+    val image: Bitmap? = null,            // Drawable resource (optional)
     val userId: String? = null,        // User ID
     val time: String? = null,          // Message time
     val message: String? = null,       // Last message

@@ -2,13 +2,10 @@ package com.example.whatsapp.presentation.viewmodels
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.Message
 import com.example.whatsapp.presentation.chat_box.ChatListModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.io.ByteArrayInputStream
 import java.io.InputStream
-import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 class BaseViewModel : ViewModel() {
@@ -325,7 +321,5 @@ class BaseViewModel : ViewModel() {
             null
         }
     }
-
-
 
 }
