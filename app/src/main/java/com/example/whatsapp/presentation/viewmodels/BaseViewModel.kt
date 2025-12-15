@@ -300,6 +300,19 @@ class BaseViewModel : ViewModel() {
     }
 
 
+    @OptIn(ExperimentalEncodingApi::class)
+    private fun decodeBase64ToBitmap(base64Image: String): Bitmap? {
+        return try {
+            val decodedByte =
+                android.util.Base64.decode(base64Image, android.util.Base64.DEFAULT)
+
+            BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
 
 
 
