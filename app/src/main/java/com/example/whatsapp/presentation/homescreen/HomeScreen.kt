@@ -17,6 +17,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,94 +32,60 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.whatsapp.R
 import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
+import com.example.whatsapp.presentation.viewmodels.BaseViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun HomeScreen() {
+fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseViewModel) {
 
+    var showPopup by remember {
+        mutableStateOf(false)
+    }
+
+    val chatData by homeBaseViewModel.chatList.collectAsState()
+
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    if (userId != null){
+        LaunchedEffect(userId){
+            homeBaseViewModel.getChatForUser(userId){chats->
+
+
+            }
+        }
+    }
+
+    var showMenu by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { /*TODO*/ },
                 containerColor = colorResource(id = R.color.light_green),
-                modifier = Modifier.size(size = 60.dp),
+                modifier = Modifier.size(size = 65.dp),
                 contentColor = Color.White
             ) {
                 Icon(
-
                     painter = painterResource(id = R.drawable.add_chat_icon),
                     contentDescription = null,
-                    modifier = Modifier.size(size = 28.dp)
+                    modifier = Modifier.size(size = 28.dp),
+                    tint = Color.White
                 )
 
             }
 
-
         },
-
         bottomBar = {
             BottomNavigationBar()
         }
-
     ) {
 
-        Column(modifier = Modifier.padding(it)) {
-
-            Spacer(modifier = Modifier.height(height = 16.dp))
-
-            Box(modifier = Modifier.fillMaxWidth()) {
-
-                Text(
-                    text = "WhatsApp",
-                    fontSize = 28.sp,
-                    color = colorResource(id = R.color.light_green),
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .padding(start = 16.dp),
-                    fontWeight = FontWeight.Bold
-
-                )
-
-                Row(modifier = Modifier.align(Alignment.CenterEnd)) {
-
-                    IconButton(onClick = {/*TODO*/ }) {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.camera),
-                            contentDescription = null,
-                            modifier = Modifier.size(size = 24.dp)
-                        )
-                    }
-
-                    IconButton(onClick = {/*TODO*/ }) {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.search),
-                            contentDescription = null,
-                            modifier = Modifier.size(size = 24.dp)
-                        )
-                    }
-
-                    IconButton(onClick = {/*TODO*/ }) {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.more),
-                            contentDescription = null,
-                            modifier = Modifier.size(size = 24.dp)
-                        )
-                    }
-
-                }
-            }
-
-
-
-        }
 
     }
 
 }
+
