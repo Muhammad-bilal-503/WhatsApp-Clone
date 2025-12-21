@@ -1,5 +1,6 @@
 package com.example.whatsapp.presentation.homescreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -84,6 +85,7 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
         }
     ) {
 
+        Column(modifier = Modifier.padding(it).background(color = Color.White)) { }
 
     }
 
