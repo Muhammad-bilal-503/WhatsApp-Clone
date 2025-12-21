@@ -17,6 +17,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,9 +53,9 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 
     val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    if (userId != null){
-        LaunchedEffect(userId){
-            homeBaseViewModel.getChatForUser(userId){chats->
+    if (userId != null) {
+        LaunchedEffect(userId) {
+            homeBaseViewModel.getChatForUser(userId) { chats ->
 
 
             }
@@ -85,9 +87,58 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
         }
     ) {
 
-        Column(modifier = Modifier.padding(it).background(color = Color.White)) { }
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .background(color = Color.White)
+        ) {
 
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Box(modifier = Modifier.fillMaxWidth()) {
+
+                val isSearching by remember { mutableStateOf(false) }
+
+                var searchText by remember { mutableStateOf("") }
+
+                val showMenu by remember { mutableStateOf(false) }
+
+                if (isSearching) {
+                    TextField(
+                        value = searchText,
+                        onValueChange = { searchText = it },
+                        placeholder = {
+                            Text(text = "Search", color = Color.Gray)
+                        },
+                        singleLine = true,
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp),
+                        colors = TextFieldDefaults.colors(
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent
+                        )
+                    )
+                } else {
+                    Text(
+                        "WhatsApp",
+                        fontSize = 28.sp,
+                        color = colorResource(R.color.light_green),
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(12.dp),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+            }
+        }
     }
 
 }
+
+
 
