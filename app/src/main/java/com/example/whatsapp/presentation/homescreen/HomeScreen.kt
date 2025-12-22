@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,6 +40,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.whatsapp.R
 import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
+import com.example.whatsapp.presentation.chat_box.ChatListBox
+import com.example.whatsapp.presentation.navigation.Routes
 import com.example.whatsapp.presentation.viewmodels.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -174,13 +178,59 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
                         }) {
                             Icon(
                                 painter = painterResource(R.drawable.more),
-                                contentDescription = null
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+
                             )
+
+                            DropdownMenu(expanded = showMenu, onDismissRequest = {
+                                showMenu = false
+                            }, modifier = Modifier.background(color = Color.White)) {
+
+                                DropdownMenuItem(
+                                    text = { Text("New Group") },
+                                    onClick = { showMenu = false })
+
+                                DropdownMenuItem(
+                                    text = { Text("New Broadcast") },
+                                    onClick = { showMenu = false })
+
+                                DropdownMenuItem(
+                                    text = { Text("Linked Devices") },
+                                    onClick = { showMenu = false })
+
+                                DropdownMenuItem(
+                                    text = { Text("Starred Messages") },
+                                    onClick = { showMenu = false })
+
+                                DropdownMenuItem(
+                                    text = { Text("Settings") },
+                                    onClick = {
+                                        showMenu = false
+                                        navHostController.navigate(Routes.SettingScreen.route)
+                                    }
+                                )
+                            }
                         }
 
                     }
 
                 }
+
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        HorizontalDivider()
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyColumn {
+
+            items(chatData){chat->
+
+                ChatListBox(chatListModel = chat)
 
             }
         }
