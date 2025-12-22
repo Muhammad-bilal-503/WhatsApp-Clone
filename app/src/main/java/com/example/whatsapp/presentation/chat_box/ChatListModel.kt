@@ -1,7 +1,7 @@
 package com.example.whatsapp.presentation.chat_box
 
 import android.graphics.Bitmap
-import com.example.whatsapp.R
+
 
 data class ChatListModel(
     val name: String? = null,          // Contact name

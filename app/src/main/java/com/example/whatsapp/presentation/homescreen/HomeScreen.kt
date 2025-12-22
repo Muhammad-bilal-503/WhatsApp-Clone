@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
@@ -41,6 +43,7 @@ import androidx.navigation.NavHostController
 import com.example.whatsapp.R
 import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
 import com.example.whatsapp.presentation.chat_box.ChatListBox
+import com.example.whatsapp.presentation.chat_box.ChatListModel
 import com.example.whatsapp.presentation.navigation.Routes
 import com.example.whatsapp.presentation.viewmodels.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -226,6 +229,14 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        if (showPopup){
+
+            AddUserPopup(onDismiss = {showPopup = false}, onUserAdd = { newUser ->
+                homeBaseViewModel.addChat(newUser)
+
+            }, baseViewModel = homeBaseViewModel)
+        }
+
         LazyColumn {
 
             items(chatData) { chat ->
@@ -251,17 +262,91 @@ fun AddUserPopup(
 
     onDismiss: () -> Unit,
 
-    onUserAdd: () -> Unit,
+    onUserAdd: (ChatListModel) -> Unit,
 
     baseViewModel: BaseViewModel
 ) {
 
     var phoneNumber by remember { mutableStateOf("") }
 
-    var isSearching by remember { mutableStateOf("") }
+    var isSearching by remember { mutableStateOf(false) }
 
-    var userFound by remember { mutableStateOf<ChatDesignModel?>(null) }
+    var userFound by remember { mutableStateOf<ChatListModel?>(null) }
 
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        TextField(
+            value = phoneNumber,
+            onValueChange = { phoneNumber = it },
+            label = { Text("Enter Phone Number") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent
+            )
+        )
+
+        Row {
+
+            Button(
+                onClick = {
+                    isSearching = true
+                    baseViewModel.searchUserByPhoneNumber(phoneNumber) { user ->
+
+                        isSearching = false
+
+                        if (user != null) {
+                            userFound = user
+                        } else {
+                            userFound = null
+                        }
+                    }
+                },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(colorResource(R.color.light_green))
+            ) {
+                Text(text = "Search")
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(colorResource(R.color.light_green))
+            ) {
+                Text(text = "Cancel")
+            }
+        }
+
+        if (isSearching) {
+            Text("Searching...", color = Color.Gray)
+        }
+
+        userFound?.let {
+
+            Column {
+
+                Text("User Found ${it.name}")
+
+                Button(onClick = {
+
+                    onUserAdd(it)
+
+                    onDismiss()
+                }, colors = ButtonDefaults.buttonColors(colorResource(R.color.light_green)))
+                {
+                    Text("Add To Chat")
+                }
+            }
+        }
+
+    }
 
 }
