@@ -97,11 +97,11 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 
             Box(modifier = Modifier.fillMaxWidth()) {
 
-                val isSearching by remember { mutableStateOf(false) }
+                var isSearching by remember { mutableStateOf(false) }
 
                 var searchText by remember { mutableStateOf("") }
 
-                val showMenu by remember { mutableStateOf(false) }
+                var showMenu by remember { mutableStateOf(false) }
 
                 if (isSearching) {
                     TextField(
@@ -132,6 +132,54 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
                             .padding(12.dp),
                         fontWeight = FontWeight.Bold
                     )
+
+                    Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+
+                        IconButton(onClick = {}) {
+                            Icon(
+                                painter = painterResource(R.drawable.camera),
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+
+                        if (isSearching) {
+
+                            IconButton(onClick = {
+                                isSearching = false
+                                searchText = ""
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.cross),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        } else {
+
+                            IconButton(onClick = {
+                                isSearching = true
+
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.search),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+
+                        IconButton(onClick = {
+                            showMenu = !showMenu
+                        }) {
+                            Icon(
+                                painter = painterResource(R.drawable.more),
+                                contentDescription = null
+                            )
+                        }
+
+                    }
+
                 }
 
             }
