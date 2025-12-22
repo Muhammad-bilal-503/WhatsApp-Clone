@@ -12,4 +12,14 @@ sealed class Routes(val route: String) {
     data object UserProfileSetScreen : Routes("user_profile_screen")
 
     data object SettingScreen : Routes("setting_screen")
+
+    data object ChatScreen : Routes("chat_screen") {
+
+        const val ROUTE_WITH_ARG = "chat_screen/{phoneNumber}"
+
+        fun createRoute(phoneNumber: String) =
+            "chat_screen/$phoneNumber"
+    }
+
+
 }

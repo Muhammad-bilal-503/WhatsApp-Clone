@@ -228,9 +228,16 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 
         LazyColumn {
 
-            items(chatData){chat->
+            items(chatData) { chat ->
 
-                ChatListBox(chatListModel = chat)
+                ChatListBox(chatListModel = chat, onClick = {
+                    navHostController.navigate(
+                        Routes.ChatScreen.createRoute(
+                            phoneNumber = chat.phoneNumber ?: "ok"
+                        )
+                    )
+
+                }, baseViewModel = homeBaseViewModel)
 
             }
         }
@@ -239,4 +246,22 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 }
 
 
+@Composable
+fun AddUserPopup(
 
+    onDismiss: () -> Unit,
+
+    onUserAdd: () -> Unit,
+
+    baseViewModel: BaseViewModel
+) {
+
+    var phoneNumber by remember { mutableStateOf("") }
+
+    var isSearching by remember { mutableStateOf("") }
+
+    var userFound by remember { mutableStateOf<ChatDesignModel?>(null) }
+
+
+
+}
