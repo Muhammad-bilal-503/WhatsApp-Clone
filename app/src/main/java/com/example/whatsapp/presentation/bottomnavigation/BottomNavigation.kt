@@ -1,5 +1,6 @@
 package com.example.whatsapp.presentation.bottomnavigation
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,78 +20,34 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.whatsapp.R
 
 @Composable
-@Preview(showSystemUi = true, showBackground = true)
-fun BottomNavigationBar() {
+fun BottomNavigationBar(
 
-    BottomAppBar(tonalElevation = 12.dp, containerColor = Color.White) {
+    navHostController: NavHostController,
+    onClick:(index: Int)-> Unit,
+    selectedItem: Int
+) {
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+    val items = listOf(
 
-            Column(modifier = Modifier.padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        NavigationItem("Chats", R.drawable.chat_icon, R.drawable.outline_chat_24),
+        NavigationItem("Updates", R.drawable.update_icon, R.drawable.update_icon),
+        NavigationItem("Communities", R.drawable.baseline_groups_24, R.drawable.outline_groups_24),
+        NavigationItem("Calls", R.drawable.telephone, R.drawable.outline_phone_24)
 
-                Icon(
-                    painter = painterResource(id = R.drawable.chat_icon),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Chats",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+    )
 
-            Column(modifier = Modifier.padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    BottomNavigationBar(){}
 
-                Icon(
-                    painter = painterResource(id = R.drawable.update_icon),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Updates",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Column(modifier = Modifier.padding(horizontal = 16.dp),horizontalAlignment = Alignment.CenterHorizontally) {
-
-                Icon(
-                    painter = painterResource(id = R.drawable.communities_icon),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Communities",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Column(modifier = Modifier.padding(horizontal = 16.dp),horizontalAlignment = Alignment.CenterHorizontally) {
-
-                Icon(
-                    painter = painterResource(id = R.drawable.telephone),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Calls",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-
-
-    }
 
 }
+
+data class NavigationItem(
+
+    val name: String,
+    @DrawableRes val selectedIcon: Int,
+    @DrawableRes val unselectedIcon: Int
+)
