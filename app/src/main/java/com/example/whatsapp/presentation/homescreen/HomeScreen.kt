@@ -90,7 +90,16 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
 
         },
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navHostController, selectedItem = 0, onClick = { index->
+                when(index){
+
+                    0 -> {navHostController.navigate(Routes.HomeScreen.route)}
+                    1 -> {navHostController.navigate(Routes.UpdateScreen.route)}
+                    2 -> {navHostController.navigate(Routes.CommunitiesScreen.route)}
+                    3 -> {navHostController.navigate(Routes.CallScreen.route)}
+                }
+
+            })
         }
     ) {
 

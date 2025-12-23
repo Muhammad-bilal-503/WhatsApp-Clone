@@ -36,12 +36,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
 import com.example.whatsapp.R
 import com.example.whatsapp.presentation.bottomnavigation.BottomNavigationBar
+import com.example.whatsapp.presentation.navigation.Routes
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun CallScreen() {
+fun CallScreen(navHostController: NavHostController) {
 
     val sampleCall = listOf(
         Call(
@@ -202,7 +203,16 @@ fun CallScreen() {
             }
         },
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navHostController, selectedItem = 0, onClick = { index->
+                when(index){
+
+                    0 -> {navHostController.navigate(Routes.HomeScreen.route)}
+                    1 -> {navHostController.navigate(Routes.UpdateScreen.route)}
+                    2 -> {navHostController.navigate(Routes.CommunitiesScreen.route)}
+                    3 -> {navHostController.navigate(Routes.CallScreen.route)}
+                }
+
+            })
         },
 
         floatingActionButton = {

@@ -1,6 +1,7 @@
 package com.example.whatsapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -11,6 +12,7 @@ import com.example.whatsapp.presentation.profile.userProfilesetScreen
 import com.example.whatsapp.presentation.splashscreen.SplashScreen
 import com.example.whatsapp.presentation.updatescreen.UpdateScreen
 import com.example.whatsapp.presentation.userregistrationscreen.UserRegistrationScreen
+import com.example.whatsapp.presentation.viewmodels.BaseViewModel
 import com.example.whatsapp.presentation.welcomescreen.WelcomeScreen
 
 @Composable
@@ -31,19 +33,20 @@ fun WhatsAppNavigationSystem() {
         }
 
         composable(Routes.HomeScreen.route){
-            HomeScreen()
+            val baseViewModel: BaseViewModel = hiltViewModel()
+            HomeScreen(navController, baseViewModel)
         }
 
         composable(Routes.UpdateScreen.route){
-            UpdateScreen()
+            UpdateScreen(navController)
         }
 
         composable(Routes.CommunitiesScreen.route){
-            CommunitiesScreen()
+            CommunitiesScreen(navController)
         }
 
         composable(Routes.CallScreen.route){
-            CallScreen()
+            CallScreen(navController)
         }
 
         composable(Routes.UserProfileSetScreen.route) {
