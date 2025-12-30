@@ -74,7 +74,7 @@ fun HomeScreen(navHostController: NavHostController, homeBaseViewModel: BaseView
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = { showPopup = true },
                 containerColor = colorResource(id = R.color.light_green),
                 modifier = Modifier.size(size = 65.dp),
                 contentColor = Color.White

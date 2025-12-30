@@ -72,7 +72,7 @@ fun BottomNavigationBar(
                         } else {
                             Color.Black
                         },
-                        modifier = Modifier.size(4.dp)
+                        modifier = Modifier.size(24.dp)
                     )
 
                     Spacer(modifier = Modifier.width(4.dp))

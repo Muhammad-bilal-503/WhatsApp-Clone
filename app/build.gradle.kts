@@ -71,6 +71,10 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("androidx.core:core-ktx:1.12.0")
+    implementation(libs.androidx.material3)
+    implementation(libs.material)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.extended.android)
 
 
     testImplementation(libs.junit)
@@ -95,6 +99,9 @@ dependencies {
     //coil dependency
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("io.coil-kt:coil:2.7.0")
+
+    // Add this line for Material Icons
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.8")
 
     // Activity Compose (Must for LocalActivity)
     implementation("androidx.activity:activity-compose:1.9.0")

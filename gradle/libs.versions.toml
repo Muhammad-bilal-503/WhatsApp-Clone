@@ -12,6 +12,10 @@ uiGraphics = "1.9.4"
 googleGmsGoogleServices = "4.4.4"
 firebaseDatabase = "22.0.1"
 firebaseAuthKtx = "24.0.1"
+material3 = "1.4.0"
+material = "1.13.0"
+materialIconsExtended = "1.6.8"
+materialIconsExtendedAndroid = "1.6.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +35,10 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "uiGraphics" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-compose-material-icons-extended-android = { group = "androidx.compose.material", name = "material-icons-extended-android", version.ref = "materialIconsExtendedAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
