@@ -2,6 +2,7 @@ package com.example.whatsapp.presentation.chat_box
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,12 +23,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.whatsapp.R
 import com.example.whatsapp.presentation.viewmodels.BaseViewModel
+
+// Helper function to get drawable resource ID for a contact name
+private fun getProfileImageDrawable(contactName: String?): Int? {
+    if (contactName == null) return null
+    
+    return when {
+        contactName.contains("Ahmad", ignoreCase = true) -> R.drawable.bilal
+        contactName.contains("Harib", ignoreCase = true) -> R.drawable.harib
+        contactName.contains("Taimoor", ignoreCase = true) -> R.drawable.taimoor
+        contactName.contains("Salam", ignoreCase = true) -> R.drawable.abdussalam
+        else -> null
+    }
+}
 
 
 @Composable
@@ -37,24 +52,30 @@ fun ChatListBox(
     baseViewModel: BaseViewModel
 ) {
 
-    Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
 
-        val profileImage = chatListModel?.profileImage
+        val profileImage = chatListModel.profileImage
 
         val bitmap = remember{
             profileImage?.let {baseViewModel.base64ToBitmap(it)}
         }
-
+        
+        // Get profile picture drawable resource based on contact name
+        val profileDrawable = remember(chatListModel.name) {
+            getProfileImageDrawable(chatListModel.name)
+        }
 
         Image(
-            painter = if (bitmap != null){
-
-                rememberImagePainter(bitmap)
-
-            }else{
-
-                painterResource(R.drawable.profile_placeholder)
-
+            painter = when {
+                bitmap != null -> rememberImagePainter(bitmap)
+                profileDrawable != null -> painterResource(profileDrawable)
+                else -> painterResource(R.drawable.profile_placeholder)
             },
             contentDescription = null,
             modifier = Modifier
@@ -75,18 +96,19 @@ fun ChatListBox(
                 Text(
                     text = chatListModel.name?:"Unknown",
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = chatListModel.time?:"--:--",
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = chatListModel.message?:"message",
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold
             )

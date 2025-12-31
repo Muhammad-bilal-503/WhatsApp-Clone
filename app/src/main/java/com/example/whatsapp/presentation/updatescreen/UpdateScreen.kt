@@ -69,16 +69,36 @@ fun UpdateScreen(navHostController: NavHostController) {
         },
 
         bottomBar = {
-            BottomNavigationBar(navHostController, selectedItem = 0, onClick = { index->
-                when(index){
-
-                    0 -> {navHostController.navigate(Routes.HomeScreen.route)}
-                    1 -> {navHostController.navigate(Routes.UpdateScreen.route)}
-                    2 -> {navHostController.navigate(Routes.CommunitiesScreen.route)}
-                    3 -> {navHostController.navigate(Routes.CallScreen.route)}
+            BottomNavigationBar(
+                navHostController = navHostController,
+                selectedItem = 1,
+                onClick = { index ->
+                    when (index) {
+                        0 -> {
+                            if (navHostController.currentDestination?.route != Routes.HomeScreen.route) {
+                                navHostController.navigate(Routes.HomeScreen.route) {
+                                    popUpTo(Routes.HomeScreen.route) { inclusive = true }
+                                }
+                            }
+                        }
+                        1 -> {
+                            if (navHostController.currentDestination?.route != Routes.UpdateScreen.route) {
+                                navHostController.navigate(Routes.UpdateScreen.route)
+                            }
+                        }
+                        2 -> {
+                            if (navHostController.currentDestination?.route != Routes.CommunitiesScreen.route) {
+                                navHostController.navigate(Routes.CommunitiesScreen.route)
+                            }
+                        }
+                        3 -> {
+                            if (navHostController.currentDestination?.route != Routes.CallScreen.route) {
+                                navHostController.navigate(Routes.CallScreen.route)
+                            }
+                        }
+                    }
                 }
-
-            })
+            )
         },
 
         topBar = {

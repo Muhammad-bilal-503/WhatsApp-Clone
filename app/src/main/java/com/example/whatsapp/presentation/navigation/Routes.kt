@@ -12,6 +12,15 @@ sealed class Routes(val route: String) {
     data object UserProfileSetScreen : Routes("user_profile_screen")
 
     data object SettingScreen : Routes("setting_screen")
+    
+    data object AccountSettingsScreen : Routes("account_settings_screen")
+    data object PrivacySettingsScreen : Routes("privacy_settings_screen")
+    data object ChatsSettingsScreen : Routes("chats_settings_screen")
+    data object NotificationsSettingsScreen : Routes("notifications_settings_screen")
+    data object StorageSettingsScreen : Routes("storage_settings_screen")
+    data object HelpSettingsScreen : Routes("help_settings_screen")
+    data object InviteSettingsScreen : Routes("invite_settings_screen")
+    data object AccountCenterSettingsScreen : Routes("account_center_settings_screen")
 
     data object ChatScreen : Routes("chat_screen") {
 
@@ -20,6 +29,8 @@ sealed class Routes(val route: String) {
         fun createRoute(phoneNumber: String) =
             "chat_screen/$phoneNumber"
     }
+    
+    data object AiChatScreen : Routes("ai_chat_screen")
 
 
 }

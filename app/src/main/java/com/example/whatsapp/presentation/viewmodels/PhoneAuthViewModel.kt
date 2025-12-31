@@ -3,6 +3,7 @@ package com.example.whatsapp.presentation.viewmodels
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.whatsapp.models.PhoneAuthUser
@@ -18,7 +19,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
 import android.util.Base64
@@ -122,6 +125,22 @@ class PhoneAuthViewModel @Inject constructor(
         }
     }
 
+    // Public function to fetch user profile with callback
+    fun getUserProfile(userId: String, callback: (PhoneAuthUser?) -> Unit) {
+        val userRef = database.reference.child("users").child(userId)
+        userRef.get().addOnSuccessListener { snapshot ->
+            if (snapshot.exists()) {
+                val userProfile = snapshot.getValue(PhoneAuthUser::class.java)
+                callback(userProfile)
+            } else {
+                callback(null)
+            }
+        }.addOnFailureListener { error ->
+            Log.e("PhoneAuth", "Profile fetch failed: ${error.message}")
+            callback(null)
+        }
+    }
+
 
     // fun for verify otp
     fun verifyCode(otp: String, context: Context) {
@@ -157,7 +176,7 @@ class PhoneAuthViewModel @Inject constructor(
         database.child("users").child(userId).setValue(userProfile)
 
     }
-// fun for convert bitmap to base64
+    // fun for convert bitmap to base64
     private fun convertBitmapToBase64(bitmap: Bitmap): String {
 
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -165,6 +184,18 @@ class PhoneAuthViewModel @Inject constructor(
         val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
 
+    }
+
+    // fun for convert base64 to bitmap
+    fun base64ToBitmap(base64String: String): Bitmap? {
+        return try {
+            val decodedByte = Base64.decode(base64String, Base64.DEFAULT)
+            val inputStream: InputStream = ByteArrayInputStream(decodedByte)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            Log.e("PhoneAuthViewModel", "Error converting base64 to bitmap: ${e.message}")
+            null
+        }
     }
 
     // fun for reset auth state

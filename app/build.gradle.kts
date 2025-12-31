@@ -7,6 +7,7 @@ plugins {
     id ("com.google.dagger.hilt.android")
     id ("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 
 }
 
@@ -105,4 +106,10 @@ dependencies {
 
     // Activity Compose (Must for LocalActivity)
     implementation("androidx.activity:activity-compose:1.9.0")
+    
+    // OkHttp for API calls
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

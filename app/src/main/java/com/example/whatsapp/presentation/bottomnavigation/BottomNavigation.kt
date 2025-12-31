@@ -5,11 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -23,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -45,7 +49,12 @@ fun BottomNavigationBar(
 
     )
 
-    NavigationBar(containerColor = Color.White, modifier = Modifier.height(80.dp)) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        modifier = Modifier
+            .windowInsetsPadding(WindowInsets.navigationBars)
+            .height(70.dp)
+    ) {
 
         items.forEachIndexed { index, item ->
 
@@ -54,9 +63,13 @@ fun BottomNavigationBar(
                 onClick = { onClick(index) },
                 label = {
                     if (index == selectedItem) {
-                        Text(text = item.name, color = Color.Black)
+                        Text(
+                            text = item.name,
+                            color = colorResource(R.color.light_green),
+                            fontWeight = FontWeight.SemiBold
+                        )
                     } else {
-                        Text(text = item.name, color = Color.DarkGray)
+                        Text(text = item.name, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 },
                 icon = {
@@ -68,16 +81,20 @@ fun BottomNavigationBar(
                         },
                         contentDescription = null,
                         tint = if (index == selectedItem) {
-                            Color.DarkGray
+                            colorResource(R.color.light_green)
                         } else {
-                            Color.Black
+                            MaterialTheme.colorScheme.onSurfaceVariant
                         },
                         modifier = Modifier.size(24.dp)
                     )
 
                     Spacer(modifier = Modifier.width(4.dp))
                 },
-                colors = NavigationBarItemDefaults.colors(indicatorColor = colorResource(R.color.mint_green))
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = colorResource(R.color.mint_green),
+                    selectedIconColor = colorResource(R.color.light_green),
+                    selectedTextColor = colorResource(R.color.light_green)
+                )
             )
         }
 

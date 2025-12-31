@@ -27,16 +27,34 @@ import androidx.navigation.NavHostController
 import com.example.whatsapp.presentation.navigation.Routes
 import kotlinx.coroutines.delay
 import androidx.navigation.compose.rememberNavController
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun SplashScreen(navHostController: NavHostController) {
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val isSignedIn = sharedPreferences.getBoolean("isSignedIn", false)
+    val currentUser = FirebaseAuth.getInstance().currentUser
 
-    LaunchedEffect(Unit){
-
-        delay (1000)
-        navHostController.navigate(Routes.WelcomeScreen.route){
-            popUpTo(Routes.SplashScreen.route){
-                inclusive = true
+    LaunchedEffect(Unit) {
+        delay(1000)
+        
+        // Check if user is already logged in
+        if (isSignedIn && currentUser != null) {
+            // User is logged in, go to Home screen
+            navHostController.navigate(Routes.HomeScreen.route) {
+                popUpTo(Routes.SplashScreen.route) {
+                    inclusive = true
+                }
+            }
+        } else {
+            // User is not logged in, go to Welcome screen
+            navHostController.navigate(Routes.WelcomeScreen.route) {
+                popUpTo(Routes.SplashScreen.route) {
+                    inclusive = true
+                }
             }
         }
     }
